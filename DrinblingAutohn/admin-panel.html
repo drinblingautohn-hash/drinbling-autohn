@@ -2,585 +2,461 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Panel Admin — DrinblingAutohn</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root {
-            --bg: #1e1e2f;
-            --card: #252440;
-            --blue: #0056b3;
-            --blue-light: #00a8ff;
-            --green: #25d366;
-            --red: #ff4757;
-            --yellow: #ffc107;
-            --white: #fff;
-            --muted: #888;
-            --border: #3d3b66;
-            --input-bg: #1a1a2e;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--white); min-height: 100vh; }
+        :root { --bg:#1e1e2f;--card:#252440;--blue:#0056b3;--blue-light:#00a8ff;--green:#25d366;--red:#ff4757;--yellow:#ffc107;--white:#fff;--muted:#888;--border:#3d3b66;--input-bg:#1a1a2e; }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--white);min-height:100vh;}
 
-        /* ─────────────────────────────
-           LOGIN SCREEN
-        ───────────────────────────── */
-        #loginScreen {
-            min-height: 100vh;
-            display: flex; align-items: center; justify-content: center;
-            padding: 20px;
-        }
-        .login-box {
-            background: var(--card);
-            padding: 48px 40px;
-            border-radius: 18px;
-            width: 100%; max-width: 400px;
-            box-shadow: 0 20px 60px rgba(0,0,0,.5);
-            text-align: center;
-        }
-        .login-box h1 { font-size: 1.6rem; color: var(--blue-light); margin-bottom: 6px; }
-        .login-box p { color: var(--muted); font-size: .9rem; margin-bottom: 30px; }
-        .login-box input {
-            width: 100%; padding: 13px 16px;
-            background: var(--input-bg); color: var(--white);
-            border: 1px solid var(--border); border-radius: 8px;
-            font-size: 1rem; font-family: 'Poppins', sans-serif;
-            margin-bottom: 14px;
-        }
-        .login-box input:focus { outline: none; border-color: var(--blue-light); }
-        .btn { 
-            width: 100%; padding: 13px;
-            border: none; border-radius: 8px;
-            font-weight: 700; font-size: 1rem;
-            cursor: pointer; transition: opacity .2s;
-            font-family: 'Poppins', sans-serif;
-        }
-        .btn:hover { opacity: .88; }
-        .btn-blue { background: var(--blue); color: white; }
-        .btn-green { background: var(--green); color: white; }
-        .btn-red { background: var(--red); color: white; }
-        .btn-yellow { background: var(--yellow); color: #222; }
-        .login-error { color: var(--red); font-size: .88rem; margin-bottom: 12px; display: none; }
+        #loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+        .login-box{background:var(--card);padding:48px 40px;border-radius:18px;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.5);text-align:center;}
+        .login-box h1{font-size:1.6rem;color:var(--blue-light);margin-bottom:6px;}
+        .login-box p{color:var(--muted);font-size:.9rem;margin-bottom:30px;}
+        .login-box input{width:100%;padding:13px 16px;background:var(--input-bg);color:var(--white);border:1px solid var(--border);border-radius:8px;font-size:1rem;font-family:'Poppins',sans-serif;margin-bottom:14px;}
+        .login-box input:focus{outline:none;border-color:var(--blue-light);}
+        .login-error{color:var(--red);font-size:.88rem;margin-bottom:12px;display:none;}
+        .btn{width:100%;padding:13px;border:none;border-radius:8px;font-weight:700;font-size:1rem;cursor:pointer;transition:opacity .2s;font-family:'Poppins',sans-serif;}
+        .btn:hover{opacity:.88;}
+        .btn-blue{background:var(--blue);color:white;}
+        .btn-green{background:var(--green);color:white;}
 
-        /* ─────────────────────────────
-           ADMIN PANEL
-        ───────────────────────────── */
-        #adminPanel { display: none; }
+        #adminPanel{display:none;}
+        .top-bar{background:var(--card);padding:16px 30px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--blue);position:sticky;top:0;z-index:100;}
+        .top-bar h1{font-size:1.2rem;color:var(--blue-light);}
+        .top-bar-right{display:flex;gap:10px;}
+        .btn-sm{padding:8px 16px;border:none;border-radius:6px;font-size:.85rem;font-weight:600;cursor:pointer;transition:opacity .2s;font-family:'Poppins',sans-serif;}
+        .btn-sm:hover{opacity:.85;}
+        .admin-body{max-width:900px;margin:0 auto;padding:30px 20px;}
 
-        .top-bar {
-            background: var(--card);
-            padding: 16px 30px;
-            display: flex; align-items: center; justify-content: space-between;
-            border-bottom: 2px solid var(--blue);
-            position: sticky; top: 0; z-index: 100;
-        }
-        .top-bar h1 { font-size: 1.2rem; color: var(--blue-light); }
-        .top-bar-right { display: flex; gap: 10px; }
-        .btn-sm {
-            padding: 8px 16px; border: none; border-radius: 6px;
-            font-size: .85rem; font-weight: 600; cursor: pointer;
-            transition: opacity .2s; font-family: 'Poppins', sans-serif;
-        }
-        .btn-sm:hover { opacity: .85; }
+        .section{background:var(--card);border-radius:14px;padding:28px;margin-bottom:28px;}
+        .section h2{font-size:1.1rem;color:var(--blue-light);margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;}
+        .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+        .form-group{margin-bottom:14px;}
+        .form-group label{display:block;font-size:.85rem;color:#bbb;margin-bottom:6px;font-weight:600;}
+        .form-group input,.form-group textarea,.form-group select{width:100%;padding:11px 14px;background:var(--input-bg);color:var(--white);border:1px solid var(--border);border-radius:8px;font-size:.95rem;font-family:'Poppins',sans-serif;}
+        .form-group input:focus,.form-group textarea:focus,.form-group select:focus{outline:none;border-color:var(--blue-light);}
+        .form-group textarea{resize:vertical;min-height:80px;}
+        .form-group select option{background:var(--input-bg);}
 
-        .admin-body { max-width: 900px; margin: 0 auto; padding: 30px 20px; }
+        /* MULTI-PHOTO */
+        .photos-section{margin-bottom:14px;}
+        .photos-section label{display:block;font-size:.85rem;color:#bbb;margin-bottom:8px;font-weight:600;}
+        .photo-tabs{display:flex;gap:8px;margin-bottom:10px;}
+        .photo-tab{padding:6px 14px;border:1px solid var(--border);border-radius:6px;background:transparent;color:#bbb;font-size:.82rem;cursor:pointer;font-family:'Poppins',sans-serif;transition:all .2s;}
+        .photo-tab.active{background:var(--blue);color:white;border-color:var(--blue);}
+        .photo-panel{display:none;}
+        .photo-panel.active{display:block;}
+        .url-add-row{display:flex;gap:8px;margin-bottom:8px;}
+        .url-add-row input{flex:1;padding:10px 12px;background:var(--input-bg);color:var(--white);border:1px solid var(--border);border-radius:8px;font-family:'Poppins',sans-serif;font-size:.9rem;}
+        .url-add-row input:focus{outline:none;border-color:var(--blue-light);}
+        .btn-add-url{padding:10px 16px;background:var(--blue);color:white;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:.85rem;white-space:nowrap;font-family:'Poppins',sans-serif;}
+        .drop-zone{border:2px dashed var(--border);border-radius:8px;padding:24px;text-align:center;cursor:pointer;color:var(--muted);font-size:.9rem;transition:border-color .2s;}
+        .drop-zone:hover,.drop-zone.dragover{border-color:var(--blue-light);color:var(--blue-light);}
+        .drop-zone i{font-size:2rem;margin-bottom:8px;display:block;}
+        .photos-preview{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+        .photo-thumb{position:relative;width:80px;height:60px;}
+        .photo-thumb img{width:100%;height:100%;object-fit:cover;border-radius:6px;}
+        .photo-thumb .del-photo{position:absolute;top:-6px;right:-6px;width:20px;height:20px;background:var(--red);color:white;border:none;border-radius:50%;font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 
-        /* ── SECTION ── */
-        .section {
-            background: var(--card);
-            border-radius: 14px; padding: 28px;
-            margin-bottom: 28px;
-        }
-        .section h2 {
-            font-size: 1.1rem; color: var(--blue-light);
-            margin-bottom: 20px;
-            padding-bottom: 10px; border-bottom: 1px solid var(--border);
-            display: flex; align-items: center; gap: 8px;
-        }
+        /* CAR LIST */
+        .car-item{background:var(--input-bg);border-radius:10px;padding:16px;margin-bottom:12px;display:flex;align-items:center;gap:16px;border-left:4px solid var(--blue);}
+        .car-item-thumb{width:80px;height:60px;object-fit:cover;border-radius:6px;flex-shrink:0;}
+        .car-item-thumb-placeholder{width:80px;height:60px;background:#2a2a45;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#555;font-size:1.6rem;flex-shrink:0;}
+        .car-item-info{flex:1;min-width:0;}
+        .car-item-info strong{display:block;font-size:.95rem;margin-bottom:2px;}
+        .car-item-info span{font-size:.8rem;color:var(--muted);}
+        .car-item-price{color:var(--blue-light);font-weight:700;font-size:.95rem;margin-top:2px;}
+        .car-item-actions{display:flex;gap:8px;flex-shrink:0;}
 
-        /* ── FORM ── */
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        .form-group { margin-bottom: 14px; }
-        .form-group label {
-            display: block; font-size: .85rem;
-            color: #bbb; margin-bottom: 6px; font-weight: 600;
-        }
-        .form-group input,
-        .form-group textarea {
-            width: 100%; padding: 11px 14px;
-            background: var(--input-bg); color: var(--white);
-            border: 1px solid var(--border); border-radius: 8px;
-            font-size: .95rem; font-family: 'Poppins', sans-serif;
-        }
-        .form-group input:focus,
-        .form-group textarea:focus { outline: none; border-color: var(--blue-light); }
-        .form-group textarea { resize: vertical; min-height: 80px; }
+        /* EDIT MODAL */
+        .edit-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:5000;overflow-y:auto;padding:20px 16px;align-items:flex-start;justify-content:center;}
+        .edit-overlay.open{display:flex;}
+        .edit-box{background:var(--card);width:100%;max-width:580px;border-radius:16px;padding:32px;animation:slideUp .3s ease;}
+        @keyframes slideUp{from{transform:translateY(30px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+        .edit-box h2{color:var(--blue-light);margin-bottom:22px;font-size:1.2rem;}
 
-        /* ── CAR LIST ── */
-        .car-item {
-            background: var(--input-bg);
-            border-radius: 10px; padding: 16px;
-            margin-bottom: 12px;
-            display: flex; align-items: center; gap: 16px;
-            border-left: 4px solid var(--blue);
-        }
-        .car-item-thumb {
-            width: 80px; height: 60px;
-            object-fit: cover; border-radius: 6px;
-            background: #2a2a45; flex-shrink: 0;
-        }
-        .car-item-thumb-placeholder {
-            width: 80px; height: 60px;
-            background: #2a2a45; border-radius: 6px;
-            display: flex; align-items: center; justify-content: center;
-            color: #555; font-size: 1.6rem; flex-shrink: 0;
-        }
-        .car-item-info { flex: 1; min-width: 0; }
-        .car-item-info strong { display: block; font-size: .95rem; margin-bottom: 2px; }
-        .car-item-info span { font-size: .8rem; color: var(--muted); }
-        .car-item-price { color: var(--blue-light); font-weight: 700; font-size: .95rem; margin-top: 2px; }
-        .car-item-actions { display: flex; gap: 8px; flex-shrink: 0; }
+        #toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#333;color:white;padding:12px 24px;border-radius:50px;font-size:.9rem;font-weight:600;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;}
+        #toast.show{opacity:1;}
+        #toast.success{background:var(--green);}
+        #toast.error{background:var(--red);}
+        .spinner-inline{display:inline-block;width:18px;height:18px;border:3px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;}
+        @keyframes spin{to{transform:rotate(360deg);}}
+        .empty-list{text-align:center;padding:40px;color:var(--muted);}
 
-        /* ── MODAL EDIT ── */
-        .edit-overlay {
-            display: none; position: fixed;
-            inset: 0; background: rgba(0,0,0,.85);
-            z-index: 5000; overflow-y: auto;
-            padding: 30px 16px;
-            align-items: flex-start; justify-content: center;
-        }
-        .edit-overlay.open { display: flex; }
-        .edit-box {
-            background: var(--card);
-            width: 100%; max-width: 540px;
-            border-radius: 16px; padding: 32px;
-            animation: slideUp .3s ease;
-        }
-        @keyframes slideUp { from { transform: translateY(30px); opacity:0; } to { transform: translateY(0); opacity:1; } }
-        .edit-box h2 { color: var(--blue-light); margin-bottom: 22px; font-size: 1.2rem; }
-
-        /* ── TOAST ── */
-        #toast {
-            position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
-            background: #333; color: white; padding: 12px 24px;
-            border-radius: 50px; font-size: .9rem; font-weight: 600;
-            z-index: 9999; opacity: 0; transition: opacity .3s;
-            pointer-events: none;
-        }
-        #toast.show { opacity: 1; }
-        #toast.success { background: var(--green); }
-        #toast.error { background: var(--red); }
-
-        /* ── SPINNER ── */
-        .spinner-inline {
-            display: inline-block; width: 18px; height: 18px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-top-color: white; border-radius: 50%;
-            animation: spin .7s linear infinite; vertical-align: middle;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        .empty-list { text-align: center; padding: 40px; color: var(--muted); }
-
-        @media (max-width: 600px) {
-            .form-row { grid-template-columns: 1fr; }
-            .car-item { flex-wrap: wrap; }
-            .login-box { padding: 32px 24px; }
-            .top-bar { padding: 14px 16px; }
-        }
+        @media(max-width:600px){.form-row{grid-template-columns:1fr;}.car-item{flex-wrap:wrap;}.login-box{padding:32px 24px;}.top-bar{padding:14px 16px;}}
     </style>
 </head>
 <body>
 
-<!-- ═══════════ LOGIN ═══════════ -->
 <div id="loginScreen">
     <div class="login-box">
         <h1><i class="fas fa-shield-alt"></i> Panel Admin</h1>
         <p>DrinblingAutohn · Acceso restringido</p>
         <p class="login-error" id="loginError"><i class="fas fa-exclamation-triangle"></i> Contraseña incorrecta.</p>
         <input type="password" id="loginInput" placeholder="Contraseña" onkeydown="if(event.key==='Enter')doLogin()">
-        <button class="btn btn-blue" onclick="doLogin()">
-            <i class="fas fa-sign-in-alt"></i> Entrar
-        </button>
+        <button class="btn btn-blue" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> Entrar</button>
     </div>
 </div>
 
-<!-- ═══════════ PANEL ADMIN ═══════════ -->
 <div id="adminPanel">
-
     <div class="top-bar">
         <h1><i class="fas fa-cog"></i> Panel de Administración</h1>
         <div class="top-bar-right">
-            <a href="catalogo.html" class="btn-sm" style="background:#3d3b66;color:white;text-decoration:none;padding:8px 16px;border-radius:6px;font-size:.85rem;font-weight:600;">
-                <i class="fas fa-eye"></i> Ver Catálogo
-            </a>
-            <button class="btn-sm" style="background:#3d3b66;color:white;" onclick="doLogout()">
-                <i class="fas fa-sign-out-alt"></i> Salir
-            </button>
+            <a href="catalogo.html" class="btn-sm" style="background:#3d3b66;color:white;text-decoration:none;padding:8px 16px;border-radius:6px;font-size:.85rem;font-weight:600;"><i class="fas fa-eye"></i> Ver Catálogo</a>
+            <button class="btn-sm" style="background:#3d3b66;color:white;" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> Salir</button>
         </div>
     </div>
 
     <div class="admin-body">
 
-        <!-- ── 1. CONFIGURACIÓN ── -->
+        <!-- CONFIG -->
         <div class="section">
             <h2><i class="fas fa-phone"></i> Contacto & Configuración</h2>
-
             <div class="form-row">
-                <div class="form-group">
-                    <label>Número WhatsApp (con código, ej: 50499979011)</label>
-                    <input type="text" id="cfgWhatsapp" placeholder="504XXXXXXXXX">
-                </div>
-                <div class="form-group">
-                    <label>Texto visible (ej: (504) 9997-9011)</label>
-                    <input type="text" id="cfgWhatsappText" placeholder="(504) XXXX-XXXX">
-                </div>
+                <div class="form-group"><label>Número WhatsApp</label><input type="text" id="cfgWhatsapp" placeholder="504XXXXXXXXX"></div>
+                <div class="form-group"><label>Texto visible</label><input type="text" id="cfgWhatsappText" placeholder="(504) XXXX-XXXX"></div>
             </div>
-
             <div class="form-row">
-                <div class="form-group">
-                    <label>Contraseña actual del panel</label>
-                    <input type="password" id="cfgPassOld" placeholder="Contraseña actual">
-                </div>
-                <div class="form-group">
-                    <label>Nueva contraseña (dejar vacío = no cambiar)</label>
-                    <input type="password" id="cfgPassNew" placeholder="Nueva contraseña">
-                </div>
+                <div class="form-group"><label>Contraseña actual</label><input type="password" id="cfgPassOld"></div>
+                <div class="form-group"><label>Nueva contraseña (vacío = no cambiar)</label><input type="password" id="cfgPassNew"></div>
             </div>
-
-            <button class="btn btn-green" onclick="saveConfig()" style="max-width:260px;">
-                <i class="fas fa-save"></i> Guardar Configuración
-            </button>
+            <button class="btn btn-green" onclick="saveConfig()" style="max-width:260px;"><i class="fas fa-save"></i> Guardar Configuración</button>
         </div>
 
-        <!-- ── 2. AGREGAR AUTO ── -->
+        <!-- AGREGAR -->
         <div class="section">
             <h2><i class="fas fa-plus-circle"></i> Agregar Vehículo</h2>
-
             <div class="form-row">
-                <div class="form-group">
-                    <label>Modelo del vehículo *</label>
-                    <input type="text" id="addModelo" placeholder="Ej: Toyota Corolla 2022">
+                <div class="form-group"><label>Modelo *</label><input type="text" id="addModelo" placeholder="Ej: Toyota Corolla 2022"></div>
+                <div class="form-group"><label>Precio</label><input type="text" id="addPrecio" placeholder="Ej: $12,500"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Año</label><input type="text" id="addAno" placeholder="2022"></div>
+                <div class="form-group"><label>Kilometraje</label><input type="text" id="addKm" placeholder="Ej: 93,000 km"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Motor</label><input type="text" id="addMotor" placeholder="Ej: 2.0 Turbo Diésel"></div>
+                <div class="form-group"><label>Transmisión</label>
+                    <select id="addTrans"><option value="">Seleccionar...</option><option>Automático</option><option>Manual</option><option>CVT</option><option>Doble embrague</option></select>
                 </div>
-                <div class="form-group">
-                    <label>Precio</label>
-                    <input type="text" id="addPrecio" placeholder="Ej: $12,500">
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Color</label><input type="text" id="addColor" placeholder="Ej: Blanco perla"></div>
+                <div class="form-group"><label>Origen</label>
+                    <select id="addOrigen"><option value="">Seleccionar...</option><option>USA</option><option>Corea</option><option>Japón</option><option>Europa</option><option>Honduras</option></select>
                 </div>
             </div>
-            <div class="form-group">
-                <label>Descripción / Información *</label>
-                <textarea id="addInfo" placeholder="Ej: Versión de lujo, asientos de cuero, 4x4..."></textarea>
+            <div class="form-group"><label>Descripción *</label><textarea id="addInfo" placeholder="Ej: Nunca chocado, full equipo..."></textarea></div>
+
+            <!-- FOTOS MÚLTIPLES -->
+            <div class="photos-section">
+                <label><i class="fas fa-images"></i> Fotos del vehículo (puedes agregar varias)</label>
+                <div class="photo-tabs">
+                    <button class="photo-tab active" onclick="switchPhotoTab('url',this,'add')"><i class="fas fa-link"></i> Por URL</button>
+                    <button class="photo-tab" onclick="switchPhotoTab('file',this,'add')"><i class="fas fa-upload"></i> Subir archivo</button>
+                </div>
+                <div class="photo-panel active" id="add-panel-url">
+                    <div class="url-add-row">
+                        <input type="text" id="addUrlInput" placeholder="https://... pega el link de la imagen">
+                        <button class="btn-add-url" onclick="addPhotoUrl('add')"><i class="fas fa-plus"></i> Agregar</button>
+                    </div>
+                </div>
+                <div class="photo-panel" id="add-panel-file">
+                    <div class="drop-zone" id="addDropZone" onclick="document.getElementById('addFileInput').click()" ondragover="dragOver(event,'addDropZone')" ondragleave="dragLeave('addDropZone')" ondrop="dropFile(event,'add')">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        Haz clic o arrastra imágenes aquí (puedes seleccionar varias)
+                    </div>
+                    <input type="file" id="addFileInput" accept="image/*" multiple style="display:none" onchange="handleFiles(this,'add')">
+                </div>
+                <div class="photos-preview" id="addPhotosPreview"></div>
             </div>
-            <div class="form-group">
-                <label>URL de la imagen (desde Cloudinary u otro servicio)</label>
-                <input type="text" id="addImg" placeholder="https://res.cloudinary.com/...">
-            </div>
-            <button class="btn btn-blue" onclick="addCar()" style="max-width:240px;" id="btnAdd">
-                <i class="fas fa-car"></i> Agregar al Catálogo
-            </button>
+
+            <button class="btn btn-blue" onclick="addCar()" style="max-width:240px;" id="btnAdd"><i class="fas fa-car"></i> Agregar al Catálogo</button>
         </div>
 
-        <!-- ── 3. INVENTARIO ── -->
+        <!-- INVENTARIO -->
         <div class="section">
             <h2><i class="fas fa-list"></i> Inventario Actual</h2>
-            <div id="carList">
-                <div class="empty-list"><span class="spinner-inline"></span> Cargando...</div>
-            </div>
+            <div id="carList"><div class="empty-list"><span class="spinner-inline"></span> Cargando...</div></div>
         </div>
-
     </div>
 </div>
 
-<!-- ── MODAL EDITAR ── -->
+<!-- MODAL EDITAR -->
 <div class="edit-overlay" id="editOverlay">
     <div class="edit-box">
         <h2><i class="fas fa-edit"></i> Editar Vehículo</h2>
         <input type="hidden" id="editId">
         <div class="form-row">
-            <div class="form-group">
-                <label>Modelo *</label>
-                <input type="text" id="editModelo">
+            <div class="form-group"><label>Modelo *</label><input type="text" id="editModelo"></div>
+            <div class="form-group"><label>Precio</label><input type="text" id="editPrecio"></div>
+        </div>
+        <div class="form-row">
+            <div class="form-group"><label>Año</label><input type="text" id="editAno"></div>
+            <div class="form-group"><label>Kilometraje</label><input type="text" id="editKm"></div>
+        </div>
+        <div class="form-row">
+            <div class="form-group"><label>Motor</label><input type="text" id="editMotor"></div>
+            <div class="form-group"><label>Transmisión</label>
+                <select id="editTrans"><option value="">Seleccionar...</option><option>Automático</option><option>Manual</option><option>CVT</option><option>Doble embrague</option></select>
             </div>
-            <div class="form-group">
-                <label>Precio</label>
-                <input type="text" id="editPrecio">
+        </div>
+        <div class="form-row">
+            <div class="form-group"><label>Color</label><input type="text" id="editColor"></div>
+            <div class="form-group"><label>Origen</label>
+                <select id="editOrigen"><option value="">Seleccionar...</option><option>USA</option><option>Corea</option><option>Japón</option><option>Europa</option><option>Honduras</option></select>
             </div>
         </div>
-        <div class="form-group">
-            <label>Descripción *</label>
-            <textarea id="editInfo"></textarea>
+        <div class="form-group"><label>Descripción *</label><textarea id="editInfo"></textarea></div>
+
+        <!-- EDIT PHOTOS -->
+        <div class="photos-section">
+            <label><i class="fas fa-images"></i> Fotos</label>
+            <div class="photo-tabs">
+                <button class="photo-tab active" onclick="switchPhotoTab('url',this,'edit')"><i class="fas fa-link"></i> Por URL</button>
+                <button class="photo-tab" onclick="switchPhotoTab('file',this,'edit')"><i class="fas fa-upload"></i> Subir archivo</button>
+            </div>
+            <div class="photo-panel active" id="edit-panel-url">
+                <div class="url-add-row">
+                    <input type="text" id="editUrlInput" placeholder="https://...">
+                    <button class="btn-add-url" onclick="addPhotoUrl('edit')"><i class="fas fa-plus"></i> Agregar</button>
+                </div>
+            </div>
+            <div class="photo-panel" id="edit-panel-file">
+                <div class="drop-zone" id="editDropZone" onclick="document.getElementById('editFileInput').click()" ondragover="dragOver(event,'editDropZone')" ondragleave="dragLeave('editDropZone')" ondrop="dropFile(event,'edit')">
+                    <i class="fas fa-cloud-upload-alt"></i> Haz clic o arrastra imágenes
+                </div>
+                <input type="file" id="editFileInput" accept="image/*" multiple style="display:none" onchange="handleFiles(this,'edit')">
+            </div>
+            <div class="photos-preview" id="editPhotosPreview"></div>
         </div>
-        <div class="form-group">
-            <label>URL de imagen</label>
-            <input type="text" id="editImg">
-        </div>
+
         <div style="display:flex;gap:10px;margin-top:6px;">
-            <button class="btn btn-green" onclick="saveEdit()" style="flex:1;">
-                <i class="fas fa-save"></i> Guardar cambios
-            </button>
-            <button class="btn" style="flex:1;background:#3d3b66;color:white;" onclick="closeEdit()">
-                Cancelar
-            </button>
+            <button class="btn btn-green" onclick="saveEdit()" style="flex:1;"><i class="fas fa-save"></i> Guardar</button>
+            <button class="btn" style="flex:1;background:#3d3b66;color:white;" onclick="closeEdit()">Cancelar</button>
         </div>
     </div>
 </div>
 
-<!-- TOAST -->
 <div id="toast"></div>
 
-<!-- Firebase SDK -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import {
-        getFirestore, collection, getDocs, addDoc,
-        updateDoc, deleteDoc, doc
-    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, serverTimestamp }
+        from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
     const firebaseConfig = {
-        apiKey: "AIzaSyAKxhqaplQsN8oJSwSqQk6wFYjxKDNEJVY",
-        authDomain: "drinblingautohn-dd2b7.firebaseapp.com",
-        projectId: "drinblingautohn-dd2b7",
-        storageBucket: "drinblingautohn-dd2b7.firebasestorage.app",
-        messagingSenderId: "509721955432",
-        appId: "1:509721955432:web:e7874bc72973596b59bfdd"
+        apiKey:"AIzaSyAKxhqaplQsN8oJSwSqQk6wFYjxKDNEJVY",
+        authDomain:"drinblingautohn-dd2b7.firebaseapp.com",
+        projectId:"drinblingautohn-dd2b7",
+        storageBucket:"drinblingautohn-dd2b7.firebasestorage.app",
+        messagingSenderId:"509721955432",
+        appId:"1:509721955432:web:e7874bc72973596b59bfdd"
     };
 
     const app = initializeApp(firebaseConfig);
     const db  = getFirestore(app);
+    let cars=[], configDocId=null, currentPassword=null;
 
-    let cars      = [];
-    let configDocId = null;
-    let currentPassword = null;
+    function toast(msg,type='success'){const t=document.getElementById('toast');t.textContent=msg;t.className=`show ${type}`;setTimeout(()=>{t.className='';},3000);}
 
-    // ─────────── TOAST ───────────
-    function toast(msg, type = 'success') {
-        const t = document.getElementById('toast');
-        t.textContent = msg;
-        t.className = `show ${type}`;
-        setTimeout(() => { t.className = ''; }, 3000);
-    }
-
-    // ─────────── LOGIN ───────────
-    window.doLogin = async function() {
-        const input = document.getElementById('loginInput').value;
-        try {
-            const snap = await getDocs(collection(db, "config"));
-            if (!snap.empty) {
-                const cfg = snap.docs[0].data();
-                configDocId = snap.docs[0].id;
-                currentPassword = cfg.password;
-                if (input === currentPassword) {
-                    document.getElementById('loginScreen').style.display = 'none';
-                    document.getElementById('adminPanel').style.display  = 'block';
+    window.doLogin = async function(){
+        const input=document.getElementById('loginInput').value;
+        try{
+            const snap=await getDocs(collection(db,"config"));
+            if(!snap.empty){
+                const cfg=snap.docs[0].data();configDocId=snap.docs[0].id;currentPassword=cfg.password;
+                if(input===currentPassword){
+                    document.getElementById('loginScreen').style.display='none';
+                    document.getElementById('adminPanel').style.display='block';
                     loadAll();
-                } else {
-                    document.getElementById('loginError').style.display = 'block';
-                }
+                }else{document.getElementById('loginError').style.display='block';}
             }
-        } catch(e) {
-            toast('Error al conectar con Firebase', 'error');
-        }
+        }catch(e){toast('Error al conectar','error');}
     };
 
-    window.doLogout = function() {
-        document.getElementById('adminPanel').style.display  = 'none';
-        document.getElementById('loginScreen').style.display = 'flex';
-        document.getElementById('loginInput').value = '';
-        document.getElementById('loginError').style.display = 'none';
+    window.doLogout=function(){
+        document.getElementById('adminPanel').style.display='none';
+        document.getElementById('loginScreen').style.display='flex';
+        document.getElementById('loginInput').value='';
+        document.getElementById('loginError').style.display='none';
     };
 
-    // ─────────── LOAD ALL ───────────
-    async function loadAll() {
-        await loadConfig();
-        await loadCars();
+    async function loadAll(){await loadConfig();await loadCars();}
+
+    async function loadConfig(){
+        try{const snap=await getDocs(collection(db,"config"));if(!snap.empty){const cfg=snap.docs[0].data();document.getElementById('cfgWhatsapp').value=cfg.whatsapp||'';document.getElementById('cfgWhatsappText').value=cfg.whatsappText||'';}}catch(e){}
     }
 
-    async function loadConfig() {
-        try {
-            const snap = await getDocs(collection(db, "config"));
-            if (!snap.empty) {
-                const cfg = snap.docs[0].data();
-                document.getElementById('cfgWhatsapp').value     = cfg.whatsapp     || '';
-                document.getElementById('cfgWhatsappText').value = cfg.whatsappText || '';
-            }
-        } catch(e) { toast('No se pudo cargar la configuración', 'error'); }
+    async function loadCars(){
+        try{const snap=await getDocs(collection(db,"autos"));cars=snap.docs.map(d=>({id:d.id,...d.data()}));renderCarList();}
+        catch(e){document.getElementById('carList').innerHTML='<p style="color:#ff4757;text-align:center;">Error al cargar.</p>';}
     }
 
-    async function loadCars() {
-        try {
-            const snap = await getDocs(collection(db, "autos"));
-            cars = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-            renderCarList();
-        } catch(e) {
-            document.getElementById('carList').innerHTML = '<p style="color:#ff4757;text-align:center;">Error al cargar autos.</p>';
-        }
-    }
+    function getFirstPhoto(car){if(car.fotos&&car.fotos.length>0)return car.fotos[0];if(car.img)return car.img;return null;}
 
-    // ─────────── RENDER LIST ───────────
-    function renderCarList() {
-        const list = document.getElementById('carList');
-        if (cars.length === 0) {
-            list.innerHTML = '<div class="empty-list"><i class="fas fa-car" style="font-size:2rem;color:#444;display:block;margin-bottom:10px;"></i>No hay autos en el inventario.</div>';
-            return;
-        }
-        list.innerHTML = cars.map(car => `
-            <div class="car-item">
-                ${car.img
-                    ? `<img src="${car.img}" class="car-item-thumb" alt="${car.modelo}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
-                    : ''}
-                <div class="car-item-thumb-placeholder" style="${car.img ? 'display:none' : ''}">
-                    <i class="fas fa-car"></i>
-                </div>
+    function renderCarList(){
+        const list=document.getElementById('carList');
+        if(cars.length===0){list.innerHTML='<div class="empty-list"><i class="fas fa-car" style="font-size:2rem;color:#444;display:block;margin-bottom:10px;"></i>No hay autos.</div>';return;}
+        list.innerHTML=cars.map(car=>{
+            const thumb=getFirstPhoto(car);
+            const photoCount=(car.fotos||[car.img].filter(Boolean)).length;
+            return `<div class="car-item">
+                ${thumb?`<img src="${thumb}" class="car-item-thumb" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`:'' }
+                <div class="car-item-thumb-placeholder" style="${thumb?'display:none':''}"><i class="fas fa-car"></i></div>
                 <div class="car-item-info">
-                    <strong>${car.modelo || 'Sin nombre'}</strong>
-                    <span>${(car.info || '').substring(0, 70)}${(car.info||'').length > 70 ? '...' : ''}</span>
-                    <div class="car-item-price">${car.precio || 'Sin precio'}</div>
+                    <strong>${car.modelo||'Sin nombre'}</strong>
+                    <span>${[car.año,car.km,car.trans].filter(Boolean).join(' · ')}${photoCount>1?' · '+photoCount+' fotos':''}</span>
+                    <div class="car-item-price">${car.precio||'Sin precio'}</div>
                 </div>
                 <div class="car-item-actions">
-                    <button class="btn-sm" style="background:#ffc107;color:#222;" onclick="openEdit('${car.id}')">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="btn-sm" style="background:#ff4757;color:white;" onclick="deleteCar('${car.id}')">
-                        <i class="fas fa-trash"></i>
-                    </button>
+                    <button class="btn-sm" style="background:#ffc107;color:#222;" onclick="openEdit('${car.id}')"><i class="fas fa-edit"></i></button>
+                    <button class="btn-sm" style="background:#ff4757;color:white;" onclick="deleteCar('${car.id}')"><i class="fas fa-trash"></i></button>
                 </div>
-            </div>
-        `).join('');
+            </div>`;
+        }).join('');
     }
 
-    // ─────────── ADD CAR ───────────
-    window.addCar = async function() {
-        const modelo = document.getElementById('addModelo').value.trim();
-        const precio = document.getElementById('addPrecio').value.trim();
-        const info   = document.getElementById('addInfo').value.trim();
-        const img    = document.getElementById('addImg').value.trim();
-
-        if (!modelo || !info) {
-            toast('El modelo y la descripción son obligatorios.', 'error');
-            return;
-        }
-
-        const btn = document.getElementById('btnAdd');
-        btn.innerHTML = '<span class="spinner-inline"></span> Agregando...';
-        btn.disabled = true;
-
-        try {
-            const docRef = await addDoc(collection(db, "autos"), { modelo, precio, info, img });
-            cars.push({ id: docRef.id, modelo, precio, info, img });
-            renderCarList();
-            document.getElementById('addModelo').value = '';
-            document.getElementById('addPrecio').value = '';
-            document.getElementById('addInfo').value   = '';
-            document.getElementById('addImg').value    = '';
-            toast('✅ Vehículo agregado al catálogo.');
-        } catch(e) {
-            toast('Error al agregar el vehículo.', 'error');
-        }
-
-        btn.innerHTML = '<i class="fas fa-car"></i> Agregar al Catálogo';
-        btn.disabled = false;
+    window.addCar=async function(){
+        const modelo=document.getElementById('addModelo').value.trim();
+        const info=document.getElementById('addInfo').value.trim();
+        if(!modelo||!info){toast('Modelo y descripción son obligatorios.','error');return;}
+        const fotos=window._addPhotos||[];
+        const carData={modelo,precio:document.getElementById('addPrecio').value.trim(),año:document.getElementById('addAno').value.trim(),km:document.getElementById('addKm').value.trim(),motor:document.getElementById('addMotor').value.trim(),trans:document.getElementById('addTrans').value,color:document.getElementById('addColor').value.trim(),origen:document.getElementById('addOrigen').value,info,fotos,img:fotos[0]||'',createdAt:serverTimestamp(),updatedAt:serverTimestamp()};
+        const btn=document.getElementById('btnAdd');btn.innerHTML='<span class="spinner-inline"></span> Agregando...';btn.disabled=true;
+        try{
+            const ref=await addDoc(collection(db,"autos"),carData);
+            cars.push({id:ref.id,...carData});renderCarList();
+            ['addModelo','addPrecio','addAno','addKm','addMotor','addColor','addInfo'].forEach(id=>document.getElementById(id).value='');
+            document.getElementById('addTrans').value='';document.getElementById('addOrigen').value='';
+            window._addPhotos=[];document.getElementById('addPhotosPreview').innerHTML='';
+            toast('✅ Vehículo agregado.');
+        }catch(e){toast('Error al agregar.','error');}
+        btn.innerHTML='<i class="fas fa-car"></i> Agregar al Catálogo';btn.disabled=false;
     };
 
-    // ─────────── DELETE CAR ───────────
-    window.deleteCar = async function(id) {
-        if (!confirm('¿Eliminar este vehículo del catálogo?')) return;
-        try {
-            await deleteDoc(doc(db, "autos", id));
-            cars = cars.filter(c => c.id !== id);
-            renderCarList();
-            toast('🗑️ Vehículo eliminado.');
-        } catch(e) {
-            toast('Error al eliminar.', 'error');
-        }
+    window.deleteCar=async function(id){
+        if(!confirm('¿Eliminar este vehículo?'))return;
+        try{await deleteDoc(doc(db,"autos",id));cars=cars.filter(c=>c.id!==id);renderCarList();toast('🗑️ Eliminado.');}
+        catch(e){toast('Error al eliminar.','error');}
     };
 
-    // ─────────── EDIT ───────────
-    window.openEdit = function(id) {
-        const car = cars.find(c => c.id === id);
-        if (!car) return;
-        document.getElementById('editId').value     = id;
-        document.getElementById('editModelo').value = car.modelo || '';
-        document.getElementById('editPrecio').value = car.precio || '';
-        document.getElementById('editInfo').value   = car.info   || '';
-        document.getElementById('editImg').value    = car.img    || '';
+    window.openEdit=function(id){
+        const car=cars.find(c=>c.id===id);if(!car)return;
+        window._editPhotos=[...(car.fotos||[car.img].filter(Boolean))];
+        document.getElementById('editId').value=id;
+        document.getElementById('editModelo').value=car.modelo||'';
+        document.getElementById('editPrecio').value=car.precio||'';
+        document.getElementById('editAno').value=car.año||'';
+        document.getElementById('editKm').value=car.km||'';
+        document.getElementById('editMotor').value=car.motor||'';
+        document.getElementById('editTrans').value=car.trans||'';
+        document.getElementById('editColor').value=car.color||'';
+        document.getElementById('editOrigen').value=car.origen||'';
+        document.getElementById('editInfo').value=car.info||'';
+        renderPhotoPreview('edit');
         document.getElementById('editOverlay').classList.add('open');
     };
 
-    window.closeEdit = function() {
-        document.getElementById('editOverlay').classList.remove('open');
+    window.closeEdit=function(){document.getElementById('editOverlay').classList.remove('open');};
+
+    window.saveEdit=async function(){
+        const id=document.getElementById('editId').value;
+        const modelo=document.getElementById('editModelo').value.trim();
+        const info=document.getElementById('editInfo').value.trim();
+        if(!modelo||!info){toast('Modelo y descripción son obligatorios.','error');return;}
+        const fotos=window._editPhotos||[];
+        const carData={modelo,precio:document.getElementById('editPrecio').value.trim(),año:document.getElementById('editAno').value.trim(),km:document.getElementById('editKm').value.trim(),motor:document.getElementById('editMotor').value.trim(),trans:document.getElementById('editTrans').value,color:document.getElementById('editColor').value.trim(),origen:document.getElementById('editOrigen').value,info,fotos,img:fotos[0]||'',updatedAt:serverTimestamp()};
+        try{
+            await updateDoc(doc(db,"autos",id),carData);
+            const i=cars.findIndex(c=>c.id===id);if(i>-1)cars[i]={id,...carData};
+            renderCarList();closeEdit();toast('✅ Actualizado.');
+        }catch(e){toast('Error al guardar.','error');}
     };
 
-    window.saveEdit = async function() {
-        const id     = document.getElementById('editId').value;
-        const modelo = document.getElementById('editModelo').value.trim();
-        const precio = document.getElementById('editPrecio').value.trim();
-        const info   = document.getElementById('editInfo').value.trim();
-        const img    = document.getElementById('editImg').value.trim();
-
-        if (!modelo || !info) {
-            toast('El modelo y descripción son obligatorios.', 'error');
-            return;
-        }
-
-        try {
-            await updateDoc(doc(db, "autos", id), { modelo, precio, info, img });
-            const i = cars.findIndex(c => c.id === id);
-            if (i > -1) cars[i] = { id, modelo, precio, info, img };
-            renderCarList();
-            closeEdit();
-            toast('✅ Vehículo actualizado.');
-        } catch(e) {
-            toast('Error al guardar cambios.', 'error');
-        }
-    };
-
-    // ─────────── SAVE CONFIG ───────────
-    window.saveConfig = async function() {
-        const waNum  = document.getElementById('cfgWhatsapp').value.trim();
-        const waText = document.getElementById('cfgWhatsappText').value.trim();
-        const passOld = document.getElementById('cfgPassOld').value;
-        const passNew = document.getElementById('cfgPassNew').value;
-
-        if (!waNum || !waText) {
-            toast('El número y texto de WhatsApp son obligatorios.', 'error');
-            return;
-        }
-
-        let newPass = currentPassword;
-
-        // Si quiere cambiar contraseña
-        if (passNew) {
-            if (passOld !== currentPassword) {
-                toast('La contraseña actual no es correcta.', 'error');
-                return;
-            }
-            newPass = passNew;
-        }
-
-        try {
-            if (!configDocId) {
-                const snap = await getDocs(collection(db, "config"));
-                configDocId = snap.docs[0]?.id;
-            }
-            await updateDoc(doc(db, "config", configDocId), {
-                whatsapp: waNum,
-                whatsappText: waText,
-                password: newPass
-            });
-            currentPassword = newPass;
-            document.getElementById('cfgPassOld').value = '';
-            document.getElementById('cfgPassNew').value = '';
+    window.saveConfig=async function(){
+        const waNum=document.getElementById('cfgWhatsapp').value.trim();
+        const waText=document.getElementById('cfgWhatsappText').value.trim();
+        const passOld=document.getElementById('cfgPassOld').value;
+        const passNew=document.getElementById('cfgPassNew').value;
+        if(!waNum||!waText){toast('WhatsApp es obligatorio.','error');return;}
+        let newPass=currentPassword;
+        if(passNew){if(passOld!==currentPassword){toast('Contraseña actual incorrecta.','error');return;}newPass=passNew;}
+        try{
+            await updateDoc(doc(db,"config",configDocId),{whatsapp:waNum,whatsappText:waText,password:newPass});
+            currentPassword=newPass;document.getElementById('cfgPassOld').value='';document.getElementById('cfgPassNew').value='';
             toast('✅ Configuración guardada.');
-        } catch(e) {
-            toast('Error al guardar configuración.', 'error');
-        }
+        }catch(e){toast('Error al guardar.','error');}
     };
 
-    // Cerrar modal al click fuera
-    document.getElementById('editOverlay').addEventListener('click', function(e) {
-        if (e.target === this) closeEdit();
-    });
+    document.getElementById('editOverlay').addEventListener('click',function(e){if(e.target===this)closeEdit();});
+
+    // Expose renderPhotoPreview for use in non-module script
+    window._renderPhotoPreview = function(context) {
+        const arr = context==='add' ? (window._addPhotos||[]) : (window._editPhotos||[]);
+        const container = document.getElementById(context+'PhotosPreview');
+        container.innerHTML = arr.map((src,i)=>`
+            <div class="photo-thumb">
+                <img src="${src}" alt="">
+                <button class="del-photo" onclick="removePhoto('${context}',${i})"><i class="fas fa-times"></i></button>
+            </div>`).join('');
+    };
+    window.renderPhotoPreview = window._renderPhotoPreview;
+</script>
+
+<script>
+    // Photo management (non-module)
+    window._addPhotos = [];
+    window._editPhotos = [];
+
+    window.switchPhotoTab = function(tab, btn, context) {
+        const prefix = context + '-panel-';
+        document.querySelectorAll(`#${context === 'add' ? 'adminPanel' : 'editOverlay'} .photo-tab`).forEach(b => b.classList.remove('active'));
+        document.querySelectorAll(`[id^="${prefix}"]`).forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(prefix + tab).classList.add('active');
+    };
+
+    window.addPhotoUrl = function(context) {
+        const input = document.getElementById(context + 'UrlInput');
+        const url = input.value.trim();
+        if (!url) return;
+        if (context === 'add') window._addPhotos.push(url);
+        else window._editPhotos.push(url);
+        input.value = '';
+        window.renderPhotoPreview(context);
+    };
+
+    window.removePhoto = function(context, idx) {
+        if (context === 'add') window._addPhotos.splice(idx, 1);
+        else window._editPhotos.splice(idx, 1);
+        window.renderPhotoPreview(context);
+    };
+
+    window.dragOver = function(e, zoneId) { e.preventDefault(); document.getElementById(zoneId).classList.add('dragover'); };
+    window.dragLeave = function(zoneId) { document.getElementById(zoneId).classList.remove('dragover'); };
+    window.dropFile = function(e, context) {
+        e.preventDefault();
+        const zoneId = context + 'DropZone';
+        document.getElementById(zoneId).classList.remove('dragover');
+        processFiles([...e.dataTransfer.files], context);
+    };
+    window.handleFiles = function(input, context) { processFiles([...input.files], context); };
+
+    function processFiles(files, context) {
+        files.filter(f => f.type.startsWith('image/')).forEach(file => {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                if (context === 'add') window._addPhotos.push(e.target.result);
+                else window._editPhotos.push(e.target.result);
+                window.renderPhotoPreview(context);
+            };
+            reader.readAsDataURL(file);
+        });
+    }
 </script>
 </body>
 </html>
