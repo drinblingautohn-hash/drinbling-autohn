@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>DrinblingAutohn | Importación de Vehículos</title>
+    <link rel="icon" type="image/png" href="LOGO2.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --blue: #0056b3;
+            --blue-light: #00a8ff;
+            --dark: #1a1a2e;
+            --nav-bg: #252440;
+            --white: #ffffff;
+            --green-wa: #25d366;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; color: var(--dark); }
+
+        /* ── NAVBAR ── */
+        .navbar {
+            position: fixed; top: 0; width: 100%; height: 70px;
+            background: var(--nav-bg);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 40px;
+            padding-left: max(40px, env(safe-area-inset-left));
+            padding-right: max(40px, env(safe-area-inset-right));
+            z-index: 3000; border-bottom: 2px solid #0056b3;
+        }
+        .logo-nav { width: 75px; }
+        .nav-links { display: flex; gap: 28px; }
+        .nav-links a { text-decoration: none; color: #ccc; font-size: 13px; text-transform: uppercase; letter-spacing: 1.2px; transition: color .2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--white); }
+
+        /* ── HERO ── */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)), url('imgportada.png') center center / cover no-repeat;
+            min-height: 100vh; min-height: 100dvh;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; color: var(--white);
+            padding: 90px 20px 40px; position: relative;
+        }
+        .hero-flags { position: absolute; top: 85px; right: 20px; display: flex; gap: 10px; }
+        .flag-icon { width: 30px; border-radius: 3px; box-shadow: 0 2px 6px rgba(0,0,0,.3); }
+        .hero h1 { font-size: 3rem; font-weight: 700; text-transform: uppercase; line-height: 1.1; letter-spacing: 2px; }
+        .hero h1 span { display: block; font-size: 5rem; font-weight: 800; color: var(--blue-light); }
+        .hero p { font-size: 1.1rem; max-width: 580px; margin: 22px auto 30px; line-height: 1.7; opacity: .9; }
+
+        .btn-contactanos {
+            background: var(--blue); color: white;
+            padding: 14px 36px; border-radius: 50px;
+            font-size: 1.05rem; font-weight: 700;
+            text-decoration: none;
+            transition: background .2s;
+            display: inline-flex; align-items: center; gap: 10px;
+        }
+        .btn-contactanos:hover { background: #004494; }
+
+        /* ── SERVICES ── */
+        .services { padding: 80px 20px; background: #f7f9fc; }
+        .services h2 { text-align: center; font-size: 2rem; color: var(--blue); margin-bottom: 50px; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
+        .service-card { background: var(--white); padding: 40px 30px; border-radius: 16px; text-align: center; border-bottom: 4px solid var(--blue); box-shadow: 0 4px 20px rgba(0,0,0,.07); transition: transform .2s; }
+        .service-card:hover { transform: translateY(-5px); }
+        .service-card i { font-size: 2.8rem; color: var(--blue); margin-bottom: 18px; }
+        .service-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+        .service-card p { font-size: .95rem; color: #555; line-height: 1.6; }
+        .btn-catalogo { display: inline-block; margin-top: 18px; background: var(--blue); color: white; padding: 10px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: .95rem; transition: background .2s; }
+        .btn-catalogo:hover { background: #004494; }
+
+        /* ── CONTACT SECTION ── */
+        .contact-section { padding: 80px 20px; background: var(--white); }
+        .contact-section h2 { text-align: center; font-size: 2rem; color: var(--blue); margin-bottom: 10px; }
+        .contact-subtitle { text-align: center; color: #666; margin-bottom: 50px; font-size: 1rem; }
+        .contact-grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; max-width: 700px; margin: 0 auto; }
+        .contact-card {
+            display: flex; align-items: center; gap: 16px;
+            background: #f7f9fc; padding: 22px 30px; border-radius: 14px;
+            text-decoration: none; color: var(--dark); font-weight: 600; font-size: 1rem;
+            border: 2px solid transparent;
+            transition: border-color .2s, transform .2s, box-shadow .2s;
+            min-width: 220px;
+        }
+        .contact-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,.1); }
+        .cc-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; color: white; flex-shrink: 0; }
+        .cc-text span { display: block; font-size: .8rem; color: #888; font-weight: 400; margin-top: 2px; }
+        .cc-wa  { background: #25d366; }
+        .card-wa { border-color: #25d366; }
+        .card-wa:hover { background: #f0fff5; }
+
+
+        .cc-fb   { background: #1877f2; }
+        .card-fb { border-color: #1877f2; }
+        .card-fb:hover { background: #f0f5ff; }
+
+        .cc-ig   { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .card-ig { border-color: #e1306c; }
+        .card-ig:hover { background: #fff0f5; }
+
+        .cc-tt   { background: #010101; }
+        .card-tt { border-color: #010101; }
+        .card-tt:hover { background: #f5f5f5; }
+
+        /* ── FOOTER ── */
+        footer { background: var(--nav-bg); color: #aaa; text-align: center; padding: 24px; padding-bottom: max(24px, env(safe-area-inset-bottom)); font-size: .85rem; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            .navbar { padding: 0 16px; }
+            .nav-links { gap: 12px; }
+            .nav-links a { font-size: 11px; }
+            .hero h1 { font-size: 2rem; }
+            .hero h1 span { font-size: 3rem; }
+            .hero p { font-size: .95rem; }
+            .hero { background-position: 70% center; }
+            .contact-card { min-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <img src="LOGO2.png" class="logo-nav" alt="DrinblingAutohn">
+        <div class="nav-links">
+            <a href="index.html" class="active">Inicio</a>
+            <a href="catalogo.html">Catálogo</a>
+            <a href="#servicios">Servicios</a>
+            <a href="contacto.html">Contacto</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-flags">
+            <img src="https://flagcdn.com/us.svg" class="flag-icon" alt="USA">
+            <img src="https://flagcdn.com/hn.svg" class="flag-icon" alt="Honduras">
+        </div>
+        <h1>Movemos tu <span>VEHÍCULO</span></h1>
+        <p>Servicio de grúa y logística para trasladar tu vehículo hasta el puerto de manera segura y confiable para enviarlo a Honduras.</p>
+        <a href="contacto.html" class="btn-contactanos">
+            <i class="fas fa-envelope"></i> Contáctanos
+        </a>
+    </header>
+
+    <section class="services" id="servicios">
+        <h2>Nuestros Servicios</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-ship"></i>
+                <h3>Importación desde USA</h3>
+                <p>Gestionamos todo el traslado terrestre en Estados Unidos hasta el puerto de embarque.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-car"></i>
+                <h3>Venta de Vehículos</h3>
+                <p>Contamos con autos seleccionados directamente desde Estados Unidos y Corea.</p>
+                <a href="catalogo.html" class="btn-catalogo">Ver Catálogo</a>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-globe-asia"></i>
+                <h3>Envíos desde Corea</h3>
+                <p>Traemos la mejor calidad de vehículos coreanos con procesos de importación simplificados.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CONTACTO ── -->
+    <section class="contact-section" id="contacto">
+        <h2>Contáctanos</h2>
+        <p class="contact-subtitle">Elige cómo quieres comunicarte con nosotros</p>
+        <div class="contact-grid">
+            <a href="#" id="waLink" class="contact-card card-wa" target="_blank">
+                <div class="cc-icon cc-wa"><i class="fab fa-whatsapp"></i></div>
+                <div class="cc-text">
+                    WhatsApp
+                    <span>Escríbenos ahora</span>
+                </div>
+            </a>
+
+            <!-- FACEBOOK -->
+            <a href="https://facebook.com/TU_PAGINA_AQUI" class="contact-card card-fb" target="_blank">
+                <div class="cc-icon cc-fb"><i class="fab fa-facebook-f"></i></div>
+                <div>
+                    <div class="cc-label">Facebook</div>
+                    <span class="cc-sub">Síguenos en Facebook</span>
+                </div>
+            </a>
+
+            <!-- INSTAGRAM -->
+            <a href="https://instagram.com/TU_USUARIO_AQUI" class="contact-card card-ig" target="_blank">
+                <div class="cc-icon cc-ig"><i class="fab fa-instagram"></i></div>
+                <div>
+                    <div class="cc-label">Instagram</div>
+                    <span class="cc-sub">Síguenos en Instagram</span>
+                </div>
+            </a>
+
+            <!-- TIKTOK -->
+            <a href="https://tiktok.com/@TU_USUARIO_AQUI" class="contact-card card-tt" target="_blank">
+                <div class="cc-icon cc-tt"><i class="fab fa-tiktok"></i></div>
+                <div>
+                    <div class="cc-label">TikTok</div>
+                    <span class="cc-sub">Síguenos en TikTok</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 DrinblingAutohn · Todos los derechos reservados</p>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAKxhqaplQsN8oJSwSqQk6wFYjxKDNEJVY",
+            authDomain: "drinblingautohn-dd2b7.firebaseapp.com",
+            projectId: "drinblingautohn-dd2b7",
+            storageBucket: "drinblingautohn-dd2b7.firebasestorage.app",
+            messagingSenderId: "509721955432",
+            appId: "1:509721955432:web:e7874bc72973596b59bfdd"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db  = getFirestore(app);
+
+        async function loadConfig() {
+            try {
+                const snap = await getDocs(collection(db, "config"));
+                if (!snap.empty) {
+                    const cfg = snap.docs[0].data();
+                    const phone = cfg.whatsapp || "50499979011";
+                    document.getElementById('waLink').href =
+                        `https://wa.me/${phone}?text=Hola, me interesa conocer más sobre sus servicios.`;
+                }
+            } catch(e) {}
+        }
+
+        loadConfig();
+    </script>
+</body>
+</html>
