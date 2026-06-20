@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DrinblingAutohn | Importación de Vehículos</title>
+    <link rel="icon" type="image/png" href="LOGO2.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --blue: #0056b3;
+            --blue-light: #00a8ff;
+            --dark: #1a1a2e;
+            --nav-bg: #252440;
+            --white: #ffffff;
+            --green-wa: #25d366;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+        }
+
+        /* ── NAVBAR ── */
+        .navbar {
+            position: fixed;
+            top: 0; width: 100%;
+            height: 70px;
+            background: var(--nav-bg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            z-index: 3000;
+            border-bottom: 2px solid #0056b3;
+        }
+        .logo-nav { width: 75px; }
+        .nav-links { display: flex; gap: 28px; }
+        .nav-links a {
+            text-decoration: none;
+            color: #ccc;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            transition: color .2s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--white); }
+
+        /* ── HERO ── */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)), url('imgportada.png') center center / cover no-repeat;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            padding: 20px;
+            position: relative;
+        }
+        .hero-flags {
+            position: absolute;
+            top: 90px; right: 30px;
+            display: flex; gap: 12px;
+        }
+        .flag-icon { width: 32px; border-radius: 3px; box-shadow: 0 2px 6px rgba(0,0,0,.3); }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 1.1;
+            letter-spacing: 2px;
+        }
+        .hero h1 span {
+            display: block;
+            font-size: 5rem;
+            font-weight: 800;
+            color: var(--blue-light);
+        }
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 580px;
+            margin: 22px auto 30px;
+            line-height: 1.7;
+            opacity: .9;
+        }
+        .hero-contact {
+            background: rgba(255,255,255,.12);
+            border: 1px solid rgba(255,255,255,.3);
+            backdrop-filter: blur(6px);
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .hero-contact i { color: var(--green-wa); margin-right: 8px; }
+
+        /* ── SERVICES ── */
+        .services {
+            padding: 80px 20px;
+            background: #f7f9fc;
+        }
+        .services h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--blue);
+            margin-bottom: 50px;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .service-card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 16px;
+            text-align: center;
+            border-bottom: 4px solid var(--blue);
+            box-shadow: 0 4px 20px rgba(0,0,0,.07);
+            transition: transform .2s;
+        }
+        .service-card:hover { transform: translateY(-5px); }
+        .service-card i { font-size: 2.8rem; color: var(--blue); margin-bottom: 18px; }
+        .service-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+        .service-card p { font-size: .95rem; color: #555; line-height: 1.6; }
+        .btn-catalogo {
+            display: inline-block;
+            margin-top: 18px;
+            background: var(--blue);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: .95rem;
+            transition: background .2s;
+        }
+        .btn-catalogo:hover { background: #004494; }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--nav-bg);
+            color: #aaa;
+            text-align: center;
+            padding: 24px;
+            font-size: .85rem;
+        }
+
+        /* ── WHATSAPP FLOTANTE ── */
+        .wa-float {
+            position: fixed;
+            bottom: 28px; right: 28px;
+            background: var(--green-wa);
+            color: white;
+            padding: 14px 22px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 6px 20px rgba(0,0,0,.25);
+            z-index: 1000;
+            display: flex; align-items: center; gap: 8px;
+            transition: transform .2s;
+        }
+        .wa-float:hover { transform: scale(1.05); }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            .navbar { padding: 0 16px; }
+            .nav-links { gap: 14px; }
+            .nav-links a { font-size: 11px; }
+            .hero h1 { font-size: 2rem; }
+            .hero h1 span { font-size: 3rem; }
+            .hero p { font-size: .95rem; }
+            .hero { background-position: 70% center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <img src="LOGO2.png" class="logo-nav" alt="DrinblingAutohn">
+        <div class="nav-links">
+            <a href="index.html" class="active">Inicio</a>
+            <a href="catalogo.html">Catálogo</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#contacto">Contacto</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-flags">
+            <img src="https://flagcdn.com/us.svg" class="flag-icon" alt="USA">
+            <img src="https://flagcdn.com/hn.svg" class="flag-icon" alt="Honduras">
+        </div>
+        <h1>Movemos tu <span>VEHÍCULO</span></h1>
+        <p>Servicio de grúa y logística para trasladar tu vehículo hasta el puerto de manera segura y confiable para enviarlo a Honduras.</p>
+        <div class="hero-contact">
+            <i class="fab fa-whatsapp"></i>
+            <span id="heroPhone">Cargando...</span>
+        </div>
+    </header>
+
+    <section class="services" id="servicios">
+        <h2>Nuestros Servicios</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-ship"></i>
+                <h3>Importación desde USA</h3>
+                <p>Gestionamos todo el traslado terrestre en Estados Unidos hasta el puerto de embarque.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-car"></i>
+                <h3>Venta de Vehículos</h3>
+                <p>Contamos con autos seleccionados directamente desde Estados Unidos y Corea.</p>
+                <a href="catalogo.html" class="btn-catalogo">Ver Catálogo</a>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-globe-asia"></i>
+                <h3>Envíos desde Corea</h3>
+                <p>Traemos la mejor calidad de vehículos coreanos con procesos de importación simplificados.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contacto">
+        <p>© 2025 DrinblingAutohn · Todos los derechos reservados</p>
+        <p style="margin-top:6px;">
+            <i class="fab fa-whatsapp" style="color:var(--green-wa)"></i>
+            <span id="footerPhone"></span>
+        </p>
+    </footer>
+
+    <a href="#" id="waFloat" class="wa-float" target="_blank">
+        <i class="fab fa-whatsapp"></i> ¡Escríbenos!
+    </a>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAKxhqaplQsN8oJSwSqQk6wFYjxKDNEJVY",
+            authDomain: "drinblingautohn-dd2b7.firebaseapp.com",
+            projectId: "drinblingautohn-dd2b7",
+            storageBucket: "drinblingautohn-dd2b7.firebasestorage.app",
+            messagingSenderId: "509721955432",
+            appId: "1:509721955432:web:e7874bc72973596b59bfdd"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function loadConfig() {
+            try {
+                const snap = await getDocs(collection(db, "config"));
+                if (!snap.empty) {
+                    const cfg = snap.docs[0].data();
+                    const phone = cfg.whatsapp || "50499979011";
+                    const text  = cfg.whatsappText || phone;
+
+                    document.getElementById('heroPhone').textContent = text;
+                    document.getElementById('footerPhone').textContent = text;
+                    document.getElementById('waFloat').href =
+                        `https://wa.me/${phone}?text=Hola, me interesa conocer más sobre sus servicios.`;
+                }
+            } catch(e) {
+                document.getElementById('heroPhone').textContent = "(504) 9997-9011";
+            }
+        }
+
+        loadConfig();
+    </script>
+</body>
+</html>
